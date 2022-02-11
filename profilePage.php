@@ -30,7 +30,7 @@ $errors = [];
 # validate name 
 if(empty($name)){
    $errors['name'] = "Field Required"; 
-}elseif(!filter_var($email,FILTER_VALIDATE_STRING)){
+}elseif(!filter_var($name,FILTER_VALIDATE_STRING)){
     $errors['Name']   = "Invalid Name";
   }
 
