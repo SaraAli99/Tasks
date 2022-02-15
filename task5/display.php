@@ -8,12 +8,12 @@ function Clean($input,$flag = 0){
     $input =  filter_var($input,FILTER_SANITIZE_STRING);  
     }
     return $input;
- }
+  }
 
    if($_SERVER['REQUEST_METHOD'] == "POST"){
-        $title = clean($_POST['title']);
+        $title   = clean($_POST['title']);
         $content = clean($_POST['content']);
-   }
+    }
 
 
  #validate
@@ -38,14 +38,8 @@ if(count($errors) > 0){
         echo '* '.$key.' : '.$value.'<br>';
     }
     }else{
-      $data =   implode('||', [$title, $content]);
-
-      if (setcookie("info", $data, time() + 86400, '/')) {
-          echo 'Cookie Set To User Browser </br>' . $title .'</br>'. $content ;
-      } else {
-          echo 'Error Try Again';
+        echo  $title .'</br>'. $content ;
       }
-    }
 
 
 
@@ -89,17 +83,19 @@ if(count($errors) > 0){
 
 //Store data into text file & stored data can be deleted .....
 
-$file = fopen('info.txt' , 'w+') or die("unable to open file");
+$file = fopen('info.txt' , 'a') or die("unable to open file");
 
-$title = $title."\n";
-fwrite($file, $title);
+$text = time() . "|" . $title . "|" .$content. "|" .$imgName. "\n";
 
-$content = $content."\n";
-fwrite($file, $content);
-
-$imgName = $imgName;
-fwrite($file, $imgName);
+fwrite($file, $text);
 
  fclose($file);
+
+// if (!unlink($file)) { 
+//     echo ("$file cannot be deleted due to an error"); 
+// } 
+// else { 
+//     echo ("$file has been deleted"); 
+// } 
 
 ?>
